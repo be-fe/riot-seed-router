@@ -169,7 +169,8 @@ var riot = require('riot');
                             delete riot.routeParams[i];
                         }
                         extend(riot.routeParams, paramsObj);
-
+                        extend(riot.routeParams, getParameterObj(location.hash));
+                        riot.routeParams.trigger('changed');
                         match = true;
                     }
                 }
@@ -190,10 +191,6 @@ var riot = require('riot');
                         }
                     }
                 }
-
-                extend(riot.routeParams, getParameterObj(location.hash));
-                riot.routeParams.trigger('changed');
-
 
                 // 如果没有匹配成功，寻找是否存在default参数的路由，如果存在，则使用default
                 if (!match) {
