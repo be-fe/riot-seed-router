@@ -120,8 +120,10 @@ var riot = require('riot');
                 var match;
                 for (var i = 0; i < arguments.length; i++) {
                     if (arguments[i]) {
-                        arguments[i] = arguments[i].replace(/\?[^\?]+/, '');
-                        argArr.push(arguments[i]);
+                        if (!arguments[i].match('=')) {
+                            arguments[i] = arguments[i].replace(/\?[^\?]+/, '');
+                            argArr.push(arguments[i]);
+                        }
                     };
                 };
 
