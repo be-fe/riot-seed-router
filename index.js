@@ -14,7 +14,7 @@ var riot = require('riot');
 
     var getParameterObj = function(urlStr) {
         var obj = {};
-        var url = urlStr || location.href;
+        var url = urlStr;
         var len = url.length;
         var offset = url.indexOf("?") + 1;
         var str = url.substr(offset, len);
@@ -23,7 +23,7 @@ var riot = require('riot');
         for (var i = 0; i < len; i++) {
             str = args[i];
             var arg = str.split("=");
-            if (args.length <= 1) break;
+            if (arg.length <= 1) break;
             else {
                 obj[arg[0]] = arg[1]
             }
@@ -84,9 +84,9 @@ var riot = require('riot');
                         }
                         self.root.appendChild(newDom);
                         self.tagObj = riot.mount(newDom)[0];
-                        if (toString.call(self.tagObj.routeChangeExec) === "[object Function]") {
-                            self.tagObj.routeChangeExec();
-                        }
+                        // if (toString.call(self.tagObj.routeChangeExec) === "[object Function]") {
+                        //     self.tagObj.routeChangeExec();
+                        // }
                     };
                 }
             }
@@ -189,7 +189,7 @@ var riot = require('riot');
                     }
                 }
 
-                extend(riot.routeParams, riot.route.query());
+                extend(riot.routeParams, getParameterObj(location.hash));
                 riot.routeParams.trigger('changed');
 
 
