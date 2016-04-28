@@ -1,6 +1,6 @@
 var riot = require('riot');
 (function(global, riot) {
-    //bug: 子级不匹配的情况下不会跳转到default
+
     riot.routeParams = {};
     riot.observable(riot.routeParams);
 
@@ -41,13 +41,14 @@ var riot = require('riot');
                 var route = obj[i][j].route;
                 var tag = obj[i][j].tag;
                 var def = obj[i][j]["default"];
-                var args = route.split('/')
+                var args = route.split('/');
+                var params = obj[i][j]["params"];
                 for (k = 0; k < args.length; k++) {
                     if (!args[k]) {
                         args.splice(k, 1);
                     }
                 }
-                routes.push({ route: route, args: args, parent: i, tag: tag, default: def, length: args.length });
+                routes.push({ route: route, args: args, parent: i, tag: tag, default: def, length: args.length, params: params });
             }
         }
 
@@ -127,10 +128,10 @@ var riot = require('riot');
                     };
                 };
 
-                for (i = 0; i < routes.length; i++) {
+                for (var i = 0; i < routes.length; i++) {
                     var l = argArr.length;
                     var matchCount = 0;
-                    for (j = 0; j < routes[i].args.length; j++) {
+                    for (var j = 0; j < routes[i].args.length; j++) {
                         var arg = routes[i].args[j];
                         if (arg) {
                             var matchParams = arg.match(/^:\w+/);
@@ -155,7 +156,7 @@ var riot = require('riot');
                         realMatchCount = l;
                         var paramsObj = {};
 
-                        for (j = 0; j < routes[i].args.length; j++) {
+                        for (var j = 0; j < routes[i].args.length; j++) {
                             var arg = routes[i].args[j];
                             var matchParams = arg.match(/^:\w+/);
                             if (arg && matchParams) {
@@ -165,9 +166,11 @@ var riot = require('riot');
                             }
                         }
 
-                        for (i in riot.routeParams) {
-                            delete riot.routeParams[i];
+                        for (item in riot.routeParams) {
+                            delete riot.routeParams[item];
                         }
+
+                        extend(riot.routeParams, { params:routes[i].params });
                         extend(riot.routeParams, paramsObj);
                         extend(riot.routeParams, getParameterObj(location.hash));
                         riot.routeParams.trigger('changed');
