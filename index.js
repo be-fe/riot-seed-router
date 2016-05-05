@@ -69,7 +69,7 @@ var riot = require('riot');
                 if (firstChild) {
                     var firstChildTagName = firstChild.tagName;
                 }
-                if (route && route.tag && route.tag.toUpperCase() !== firstChildTagName || fresh) {
+                if (route && route.tag && (route.tag.toUpperCase() !== firstChildTagName || fresh)) {
 
                     var newDom = document.createElement(route.tag);
                     var parentNode = self.root.parentNode;
