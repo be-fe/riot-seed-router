@@ -80,14 +80,13 @@ var riot = require('riot');
                             self.tagObj = null;
                             self.root.innerHTML = '';
                         }
-                        else {
-                            self.root.innerHTML = '';
+                        
+                        if (!self.root.getElementsByTagName(route.tag)[0]) {
+                            setTimeout(function() {
+                                self.root.appendChild(newDom);
+                                self.tagObj = riot.mount(newDom)[0];
+                            });
                         }
-                        self.root.appendChild(newDom);
-                        self.tagObj = riot.mount(newDom)[0];
-                        // if (toString.call(self.tagObj.routeChangeExec) === "[object Function]") {
-                        //     self.tagObj.routeChangeExec();
-                        // }
                     };
                 }
             }
