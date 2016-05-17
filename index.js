@@ -198,6 +198,8 @@ var riot = require('riot');
                 if (!match) {
                     for (i = 0; i < routes.length; i++) {
                         if (routes[i].default) {
+                            extend(riot.routeParams, { params:routes[i].params });
+                            riot.routeParams.trigger('changed');
                             mountContent(routes[i]);
                         }
                     }
