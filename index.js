@@ -80,7 +80,7 @@ var riot = require('riot');
                             self.tagObj = null;
                             self.root.innerHTML = '';
                         }
-                        
+
                         if (!self.root.getElementsByTagName(route.tag)[0]) {
                             setTimeout(function() {
                                 self.root.appendChild(newDom);
@@ -165,7 +165,7 @@ var riot = require('riot');
                             }
                         }
 
-                        for (item in riot.routeParams) {
+                        for (var item in riot.routeParams) {
                             delete riot.routeParams[item];
                         }
 
