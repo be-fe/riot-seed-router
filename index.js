@@ -1,4 +1,9 @@
 var riot = require('riot');
+var route = require('riot-route');
+if (!riot.route) {
+    riot.route = route;
+}
+
 (function(global, riot) {
 
     riot.routeParams = {};
@@ -43,7 +48,7 @@ var riot = require('riot');
                 var def = obj[i][j]["default"];
                 var args = route.split('/');
                 var params = obj[i][j]["params"];
-                for (k = 0; k < args.length; k++) {
+                for (var k = 0; k < args.length; k++) {
                     if (!args[k]) {
                         args.splice(k, 1);
                     }

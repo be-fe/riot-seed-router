@@ -1,8 +1,12 @@
 {
   "name": "riot-seed-router",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "author": "xieyu33333",
+  "peerDependencies": {
+    "riot": "^3.6.0",
+    "riot-route": "3.1.1"
+  },
   "license": "ISC"
 }
